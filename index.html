@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boeing and Airbus Planes</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .half {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s;
+            position: relative;
+        }
+        #boeing {
+            background-color: #0000FF;
+            color: white;
+        }
+        #airbus {
+            background-color: #FF0000;
+            color: white;
+        }
+        .content {
+            text-align: center;
+        }
+        .plane-list, .plane-info {
+            display: none;
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            overflow-y: auto;
+        }
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="half" id="boeing">
+            <div class="content" onclick="showList('boeing')">Boeing</div>
+            <div class="plane-list" id="boeing-list">
+                <div class="back-button" onclick="hideList('boeing')">Back</div>
+                <div onclick="showInfo('boeing', '737')">737</div>
+                <div onclick="showInfo('boeing', '747')">747</div>
+                <div onclick="showInfo('boeing', '777')">777</div>
+            </div>
+            <div class="plane-info" id="boeing-info">
+                <div class="back-button" onclick="hideInfo('boeing')">Back</div>
+                <div id="boeing-info-content"></div>
+            </div>
+        </div>
+        <div class="half" id="airbus">
+            <div class="content" onclick="showList('airbus')">Airbus</div>
+            <div class="plane-list" id="airbus-list">
+                <div class="back-button" onclick="hideList('airbus')">Back</div>
+                <div onclick="showInfo('airbus', 'A320')">A320</div>
+                <div onclick="showInfo('airbus', 'A380')">A380</div>
+            </div>
+            <div class="plane-info" id="airbus-info">
+                <div class="back-button" onclick="hideInfo('airbus')">Back</div>
+                <div id="airbus-info-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showList(manufacturer) {
+            document.getElementById(manufacturer + '-list').style.display = 'block';
+            document.getElementById(manufacturer).getElementsByClassName('content')[0].style.display = 'none';
+        }
+
+        function hideList(manufacturer) {
+            document.getElementById(manufacturer + '-list').style.display = 'none';
+            document.getElementById(manufacturer).getElementsByClassName('content')[0].style.display = 'block';
+            hideInfo(manufacturer);
+        }
+
+        function showInfo(manufacturer, model) {
+            let info = {
+                'boeing': {
+                    '737': 'Short to medium range airliner.',
+                    '747': 'Large, long-range airliner.',
+                    '777': 'Long range, wide-body twin-engine jet.'
+                },
+                'airbus': {
+                    'A320': 'Short to medium range airliner.',
+                    'A380': 'Large, long-range double-deck airliner.'
+                }
+            };
+            document.getElementById(manufacturer + '-info-content').innerText = model + ": " + info[manufacturer][model];
+            document.getElementById(manufacturer + '-info').style.display = 'block';
+            document.getElementById(manufacturer + '-list').style.display = 'none';
+        }
+
+        function hideInfo(manufacturer) {
+            document.getElementById(manufacturer + '-info').style.display = 'none';
+            document.getElementById(manufacturer + '-list').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
